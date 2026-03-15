@@ -5,6 +5,7 @@
 .idea/
 .github/
 .vscode/
+.github
 .phpstorm.meta.php
 .phpunit.result.cache
 composer.lock
