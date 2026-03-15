@@ -1,4 +1,4 @@
-# MCP MariaDB Server
+# MCP MariaDB Server (PHP)
 
 > 🇺🇸 [Read in English](../README.md) · 🇧🇷 [Ler em Português do Brasil](README.pt-BR.md)
 
