@@ -6,6 +6,7 @@ namespace App\Tools;
 
 use App\Database;
 use Mcp\Capability\Attribute\McpTool;
+use Mcp\Exception\ToolCallException;
 
 class SchemaTool
 {
@@ -35,7 +36,7 @@ class SchemaTool
 
 			return $rows;
 		} catch (\PDOException $e) {
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage());
 		}
 	}
 
@@ -65,7 +66,7 @@ class SchemaTool
 
 			return $rows;
 		} catch (\PDOException $e) {
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage());
 		}
 	}
 
@@ -94,7 +95,7 @@ class SchemaTool
 
 			return $rows;
 		} catch (\PDOException $e) {
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage());
 		}
 	}
 
@@ -136,7 +137,7 @@ class SchemaTool
 
 			return $rows;
 		} catch (\PDOException $e) {
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage());
 		}
 	}
 
@@ -157,7 +158,7 @@ class SchemaTool
 
 			return $row;
 		} catch (\PDOException $e) {
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage());
 		}
 	}
 }

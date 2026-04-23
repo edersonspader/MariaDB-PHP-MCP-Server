@@ -6,6 +6,7 @@ namespace App\Tools;
 
 use App\Database;
 use Mcp\Capability\Attribute\McpTool;
+use Mcp\Exception\ToolCallException;
 
 class TransactionTool
 {
@@ -19,7 +20,7 @@ class TransactionTool
 	public function beginTransaction(): array
 	{
 		if ($this->db->inTransaction()) {
-			throw new \RuntimeException('A transaction is already active.');
+			throw new ToolCallException('A transaction is already active.');
 		}
 
 		$this->db->beginTransaction();
@@ -36,7 +37,7 @@ class TransactionTool
 	public function commitTransaction(): array
 	{
 		if (!$this->db->inTransaction()) {
-			throw new \RuntimeException('No active transaction to commit.');
+			throw new ToolCallException('No active transaction to commit.');
 		}
 
 		$this->db->commit();
@@ -53,7 +54,7 @@ class TransactionTool
 	public function rollbackTransaction(): array
 	{
 		if (!$this->db->inTransaction()) {
-			throw new \RuntimeException('No active transaction to roll back.');
+			throw new ToolCallException('No active transaction to roll back.');
 		}
 
 		$this->db->rollBack();

@@ -6,6 +6,7 @@ namespace App\Tools;
 
 use App\Database;
 use Mcp\Capability\Attribute\McpTool;
+use Mcp\Exception\ToolCallException;
 
 class HealthTool
 {
@@ -33,7 +34,7 @@ class HealthTool
 			];
 		} catch (\PDOException $e) {
 			$this->db->getLogger()->error('ping error', ['error' => $e->getMessage()]);
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage(), (int) $e->getCode(), $e);
 		}
 	}
 }

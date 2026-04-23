@@ -6,6 +6,7 @@ namespace App\Tools;
 
 use App\Database;
 use Mcp\Capability\Attribute\McpTool;
+use Mcp\Exception\ToolCallException;
 
 class QueryTool
 {
@@ -76,7 +77,7 @@ class QueryTool
 			return ['affected' => $stmt->rowCount(), 'execution_time_ms' => $elapsed];
 		} catch (\PDOException $e) {
 			$logger->error('exec error', ['error' => $e->getMessage(), 'sql' => $sql]);
-			throw new \RuntimeException('Database error: ' . $e->getMessage());
+			throw new ToolCallException('Database error: ' . $e->getMessage(), (int) $e->getCode(), $e);
 		}
 	}
 }

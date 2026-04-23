@@ -8,14 +8,21 @@ use Psr\Log\LoggerInterface;
 
 class Database
 {
-	private \PDO $pdo;
+	private ?\PDO $pdo = null;
 	private bool $inTransaction = false;
 
 	public function __construct(
 		private readonly Config $config,
 		private readonly LoggerInterface $logger,
-	) {
-		$this->connect();
+	) {}
+
+	private function pdo(): \PDO
+	{
+		if ($this->pdo === null) {
+			$this->connect();
+		}
+
+		return $this->pdo;
 	}
 
 	private function connect(): void
@@ -42,7 +49,7 @@ class Database
 	public function executeRaw(string $sql): \PDOStatement
 	{
 		try {
-			$stmt = $this->pdo->prepare($sql);
+			$stmt = $this->pdo()->prepare($sql);
 			$stmt->execute();
 			return $stmt;
 		} catch (\PDOException $e) {
@@ -64,7 +71,7 @@ class Database
 
 	public function prepare(string $sql): \PDOStatement
 	{
-		return $this->pdo->prepare($sql);
+		return $this->pdo()->prepare($sql);
 	}
 
 	public function escapeIdentifier(string $name): string
@@ -84,19 +91,19 @@ class Database
 
 	public function beginTransaction(): void
 	{
-		$this->pdo->beginTransaction();
+		$this->pdo()->beginTransaction();
 		$this->inTransaction = true;
 	}
 
 	public function commit(): void
 	{
-		$this->pdo->commit();
+		$this->pdo()->commit();
 		$this->inTransaction = false;
 	}
 
 	public function rollBack(): void
 	{
-		$this->pdo->rollBack();
+		$this->pdo()->rollBack();
 		$this->inTransaction = false;
 	}
 
