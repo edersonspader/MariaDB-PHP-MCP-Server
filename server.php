@@ -23,7 +23,7 @@ if (is_file(__DIR__ . '/.env')) {
 $config = Config::fromEnv();
 
 $logger = new Logger('mcp');
-$logger->pushHandler(new StreamHandler(__DIR__ . '/var/logs/mcp.log', Level::Debug));
+$logger->pushHandler(new StreamHandler(__DIR__ . '/var/logs/mcp.log', Level::Notice));
 
 $container = new Container();
 $container->set(Config::class, $config);
